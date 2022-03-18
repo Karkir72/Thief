@@ -10,7 +10,7 @@ public class Alarm : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if (collision.GetComponent<Player>())
         {
             _cameInto.Invoke();
         }
@@ -18,7 +18,7 @@ public class Alarm : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if (collision.GetComponent<Player>())
         {
             _cameOut.Invoke();
         }
