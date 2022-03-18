@@ -5,11 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField] private float _speed;
-    void Start()
-    {
-    }
 
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetKey(KeyCode.A))
