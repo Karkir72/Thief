@@ -19,34 +19,32 @@ public class Bell : MonoBehaviour
     public void StartRing()
     {
         _animator.SetBool(AnimatorAlarm.Params.IsRinging, true);
-        StartCoroutine(FadeVolume());
+        StopCoroutine(nameof(FadeVolume));
+        StartCoroutine(FadeVolume(1));
     }
 
     public void StopRing()
     {
         _animator.SetBool(AnimatorAlarm.Params.IsRinging, false);
-        StartCoroutine(FadeVolume());
+        StopCoroutine(nameof(FadeVolume));
+        StartCoroutine(FadeVolume(0));
     }
 
-    private IEnumerator FadeVolume()
+    private IEnumerator FadeVolume(float targetVolume)
     {
-        if (_alarm.isPlaying == false)
+        if (_alarm.volume == 0)
         {
             _alarm.Play();
-            while (_alarm.volume < 1f)
-            {
-                _alarm.volume = Mathf.MoveTowards(_alarm.volume, 1f, 0.01f);
-                yield return null;
-            }
         }
-        else
-        {
-            while (_alarm.volume > 0f)
-            {
-                _alarm.volume = Mathf.MoveTowards(_alarm.volume, 0f, 0.01f);
-                yield return null;
-            }
 
+        while (_alarm.volume != targetVolume)
+        {
+            _alarm.volume = Mathf.MoveTowards(_alarm.volume, targetVolume, 0.01f);
+            yield return null;
+        }
+
+        if (_alarm.volume == 0)
+        {
             _alarm.Stop();
         }
     }
