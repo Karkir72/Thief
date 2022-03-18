@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Bell : MonoBehaviour
 {
-    private AudioSource _alarm;
     private Animator _animator;
+    private AudioSource _alarm;
 
     private void Start()
     {
